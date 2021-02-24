@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    Hello vue
-    <v-main-wrapper></v-main-wrapper>
+    <v-main-wrapper />
   </div>
 </template>
 
@@ -19,7 +18,7 @@
 
 <style>
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: Tahoma;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

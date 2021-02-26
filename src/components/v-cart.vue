@@ -2,16 +2,17 @@
     <div class="v-cart">
         <h1>Cart</h1>
         <v-cart-item
-            v-for="item in cart_data"
+            v-for="(item, index) in cart_data"
             :key="item.article"
             :cart_item_data="item"
-            @deleteFromCart="deleteFromCart"
+            @deleteFromCart="deleteFromCart(index)"
         />
     </div>
 </template>
 
 <script>
     import vCartItem from './v-cart-item';
+    import {mapActions} from 'vuex';
 
     export default {
         name: 'v-cart',
@@ -27,13 +28,20 @@
             }
         },
         methods: {
-            deleteFromCart() {
-                 
+            ...mapActions([
+                'DELETE_FROM_CART'
+            ]),
+            deleteFromCart(index) {
+                 this.DELETE_FROM_CART(index);
             }
         }
     }
 </script>
 
 <style>
-
+    .v-cart {
+        display: grid;
+        grid-gap: 15px;
+        margin-top: 10px;
+    }
 </style>

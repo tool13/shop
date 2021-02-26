@@ -39,13 +39,14 @@
 <style lang="scss">
     .v-cart-item {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-around;
         align-items: center;
-        padding: 25px 15px;
+        padding: 15px;
         box-shadow: 0 0 10px 0 rgba(61, 61, 61, 0.65);
 
         &__image {
-            max-width: 50px;;
+            max-height: 100px;
         }
     }
 </style>

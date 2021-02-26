@@ -72,10 +72,11 @@
             }
         }
         &__list {
-            margin-top: 35px;
             display: grid;
             grid-gap: 35px;
             grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+            margin-top: 35px;
+            padding: 0;
         }
     }
 </style>

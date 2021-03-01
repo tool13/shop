@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    export default { 
+    export default {
         name: 'v-catalog-item',
         props: {
             product_data: {
@@ -22,6 +22,9 @@
             addToCart() {
                 this.$emit('addToCart', this.product_data);
             }
+        },
+        mounted() {
+            this.$set(this.product_data, 'quantity', 1);
         }
     }
 </script>

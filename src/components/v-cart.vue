@@ -1,6 +1,10 @@
 <template>
     <div class="v-cart">
-        <h1>Cart</h1>
+        <h1 class="v-cart__title">Cart</h1>
+        <router-link :to="{name: 'catalog'}">
+            <span class="v-cart__link-to-catalog">Back to catalog</span>
+        </router-link>
+        <p v-if="!cart_data.length">There are no products</p>
         <v-cart-item
             v-for="(item, index) in cart_data"
             :key="item.article"
@@ -38,10 +42,39 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .v-cart {
         display: grid;
         grid-gap: 15px;
         margin-top: 10px;
+
+        &__title {
+            position: relative;
+            width: fit-content;
+            margin: 0 auto;
+            padding-bottom: 3px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 10%;
+                width: 80%;
+                height: 1px;
+                background-color: sandybrown;
+            }
+        }
+
+        &__link-to-catalog {
+             position: absolute;
+             top: 0;
+             right: 5px;
+             color: #000;
+             padding: 10px;
+             border: 1px solid sandybrown;
+         }
     }
 </style>

@@ -11,6 +11,9 @@
             :cart_item_data="item"
             @deleteFromCart="deleteFromCart(index)"
         />
+        <div class="v-cart__total">
+            <p>Total: <b>{{calcTotalCost}}</b> Р.</p>
+        </div>
     </div>
 </template>
 
@@ -31,6 +34,15 @@
                 }
             }
         },
+        computed: {
+            calcTotalCost() {
+                let result = 0;
+                this.cart_data.forEach(item => {
+                    result = result + item.price * item.quantity;
+                });
+                return result;
+            }
+        },
         methods: {
             ...mapActions([
                 'DELETE_FROM_CART'
@@ -47,6 +59,7 @@
         display: grid;
         grid-gap: 15px;
         margin-top: 10px;
+        margin-bottom: 110px;
 
         &__title {
             position: relative;
@@ -76,5 +89,16 @@
              padding: 10px;
              border: 1px solid sandybrown;
          }
+
+        &__total {
+            position: fixed;
+            bottom: 10px;
+            right: 0;
+            width: 100%;
+            padding: 15px 10px;
+            font-size: 20px;
+            color: #fff;
+            background-color: sandybrown;
+        }
     }
 </style>

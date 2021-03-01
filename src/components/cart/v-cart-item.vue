@@ -1,6 +1,6 @@
 <template>
     <div class="v-cart-item">
-        <img class="v-cart-item__image" v-bind:src="require('../assets/images/' + cart_item_data.image)" alt="">
+        <img class="v-cart-item__image" v-bind:src="require('../../assets/images/' + cart_item_data.image)" alt="">
         <div class="v-cart-item__info">
             <p>{{cart_item_data.name}}</p>
             <p>{{cart_item_data.price}}</p>
@@ -8,7 +8,11 @@
         </div>
         <div class="v-cart-item__quantity">
             <p>Qty</p>
-            {{cart_item_data.quantity}}
+            <p>
+                <button class="v-cart-item__quantity-btn" type="bitton" @click="decrementItem">-</button>
+                <span>{{cart_item_data.quantity}}</span>
+                <button class="v-cart-item__quantity-btn" type="bitton" @click="incrementItem">+</button>
+            </p>
         </div>
         <button @click="deleteFromCart">Delete</button>
     </div>
@@ -26,6 +30,14 @@
             }
         },
         methods: {
+            decrementItem() {
+                if (this.cart_item_data.quantity > 1) {
+                    this.cart_item_data.quantity--;
+                }
+            },
+            incrementItem() {
+                this.cart_item_data.quantity++;
+            },
             deleteFromCart() {
                 this.$emit('deleteFromCart');
             }
@@ -44,6 +56,11 @@
 
         &__image {
             max-height: 100px;
+        }
+
+        &__quantity-btn {
+            margin: 0 5px;
+            padding: 0 5px;
         }
     }
 </style>

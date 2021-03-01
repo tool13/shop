@@ -66,8 +66,7 @@
             },
             sortByFilter(option) {
                 this.sortedProducts = [];
-                let vm = this;
-                vm.PRODUCTS.map(item => {
+                this.PRODUCTS.map(item => {
                     if (item.category === option.name) {
                         this.sortedProducts.push(item);
                     }
@@ -76,11 +75,7 @@
             }
         },
         mounted() {
-            this.GET_PRODUCTS_FROM_API().then((response) => {
-                if (response.data) {
-                    console.log('data arrived');
-                }
-            })
+            this.GET_PRODUCTS_FROM_API();
         }
     }
 </script>

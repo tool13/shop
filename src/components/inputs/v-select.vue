@@ -65,6 +65,7 @@
         &__title {
             padding: 5px 10px;
             border: 1px solid sandybrown;
+            cursor: pointer;
         }
 
         &__options {
@@ -80,6 +81,11 @@
         &__option {
             margin: 0;
             padding:  5px 10px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: lightgray;
+            }
         }
     }
 </style>

@@ -4,9 +4,14 @@
         <router-link :to="{name: 'cart', params: {cart_data: CART}}">
             <span class="v-catalog__link-to-cart">Cart: {{CART.length}}</span>
         </router-link>
+        <v-select
+            v-bind:options="filters"
+            v-bind:selected="selected"
+            @select="sortByFilter"
+        />
         <ul class="v-catalog__list">
             <v-catalog-item
-                v-for="product in PRODUCTS"
+                v-for="product in filteredProducts"
                 :key="product.article"
                 v-bind:product_data="product"
                 @addToCart="addToCart"
@@ -17,22 +22,38 @@
 
 <script>
     import vCatalogItem from './v-catalog-item';
+    import vSelect from '../inputs/v-select';
     import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: 'v-catalog',
         components: {
+            vSelect,
             vCatalogItem
         },
         computed: {
             ...mapGetters([
                 'PRODUCTS',
                 'CART'
-            ])
+            ]),
+            filteredProducts() {
+                if (this.sortedProducts.length) {
+                    return this.sortedProducts;
+                } else {
+                    return this.PRODUCTS;
+                }
+            }
         },
         data() {
             return {
-                title: 'catalog'
+                title: 'catalog',
+                filters: [
+                    {name: 'Все', value: 'all'},
+                    {name: 'Мужские', value: 'm'},
+                    {name: 'Женские', value: 'w'}
+                ],
+                selected: 'all',
+                sortedProducts: []
             };
         },
         methods: {
@@ -42,6 +63,16 @@
             ]),
             addToCart(data) {
                 this.ADD_TO_CART(data);
+            },
+            sortByFilter(option) {
+                this.sortedProducts = [];
+                let vm = this;
+                vm.PRODUCTS.map(item => {
+                    if (item.category === option.name) {
+                        this.sortedProducts.push(item);
+                    }
+                });
+                this.selected = option.name;
             }
         },
         mounted() {

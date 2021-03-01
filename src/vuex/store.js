@@ -11,6 +11,8 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
+        isMpbile: false,
+        isDesktop: true,
         products: [],
         cart: []
     },

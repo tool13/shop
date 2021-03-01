@@ -6,12 +6,32 @@
 
 <script>
 
-  import vMainWrapper from './components/v-main-wrapper'
+  import vMainWrapper from './components/v-main-wrapper';
+  import {mapActions,mapGetters} from 'vuex';
 
   export default {
     name: 'App',
     components: {
       vMainWrapper
+    },
+    methods: {
+      ...mapActions([
+        'SET_MOBILE',
+        'SET_DESKTOP'
+      ]),
+      checkDevice() {
+        window.innerWidth > 767 ? this.SET_DESKTOP() : this.SET_MOBILE();
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'IS_MOBILE',
+        'IS_DESKTOP'
+      ]),
+    },
+    mounted() {
+      this.checkDevice();
+      window.addEventListener('resize', this.checkDevice.bind(this), true);
     }
   }
 </script>

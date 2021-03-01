@@ -5,7 +5,7 @@
         >{{ selected }}
         </p>
         <div class="v-select__options"
-             v-if="areOptionsVisible"
+             v-if="areOptionsVisible || isExpanded"
         >
             <p class="v-select__option"
                 v-for="option in options"
@@ -32,6 +32,12 @@
                 type: String,
                 default() {
                     return '';
+                }
+            },
+            isExpanded: {
+                type: Boolean,
+                default() {
+                    return false;
                 }
             }
         },

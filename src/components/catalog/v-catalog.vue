@@ -8,6 +8,7 @@
             v-bind:options="filters"
             v-bind:selected="selected"
             @select="sortByFilter"
+            v-bind:isExpanded="IS_DESKTOP"
         />
         <ul class="v-catalog__list">
             <v-catalog-item
@@ -34,7 +35,9 @@
         computed: {
             ...mapGetters([
                 'PRODUCTS',
-                'CART'
+                'CART',
+                'IS_MOBILE',
+                'IS_DESKTOP'
             ]),
             filteredProducts() {
                 if (this.sortedProducts.length) {

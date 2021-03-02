@@ -12,13 +12,15 @@
             @deleteFromCart="deleteFromCart(index)"
         />
         <div class="v-cart__total">
-            <p>Total: <b>{{calcTotalCost}}</b> Р.</p>
+            <p>Total: <b>{{calcTotalCost | toFix | formatPrice}}</b> Р.</p>
         </div>
     </div>
 </template>
 
 <script>
     import vCartItem from './v-cart-item';
+    import toFix from '../filters/toFix';
+    import formatPrice from '../filters/priceFormat';
     import {mapActions} from 'vuex';
 
     export default {
@@ -50,6 +52,10 @@
             deleteFromCart(index) {
                  this.DELETE_FROM_CART(index);
             }
+        },
+        filters: {
+            toFix,
+            formatPrice
         }
     }
 </script>

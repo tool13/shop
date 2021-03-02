@@ -9,20 +9,22 @@
         >
             <img class="v-catalog-item__image" v-bind:src="require('../../assets/images/' + product_data.image)" alt="">
             <div>
-                <p class="v-catalog-item__price">Price: <b>{{product_data.price}}</b> P</p>
+                <p class="v-catalog-item__price">Price: <b>{{product_data.price | toFix | formatPrice}}</b> P</p>
                 <p class="v-catalog-item__price">{{product_data.category}}</p>
             </div>
         </v-popup>
         <img class="v-catalog-item__image" v-bind:src="require('../../assets/images/' + product_data.image)" alt="">
         <h3 class="v-catalog-item__name">{{product_data.name}}</h3>
-        <p class="v-catalog-item__price">Price: <b>{{product_data.price}}</b> P</p>
+        <p class="v-catalog-item__price">Price: <b>{{product_data.price | toFix | formatPrice}}</b> P</p>
         <button type="button" class="v-catalog-item__show btn" @click="showPopupInfo">show info</button>
         <button type="button" class="v-catalog-item__add btn" @click="addToCart">add to card</button>
     </div>
 </template>
 
 <script>
-    import vPopup from '../popup/v-popup'
+    import vPopup from '../popup/v-popup';
+    import toFix from '../filters/toFix';
+    import formatPrice from '../filters/priceFormat';
 
     export default {
         name: 'v-catalog-item',
@@ -41,6 +43,10 @@
             return {
                 isInfoPopupVisible: false
             }
+        },
+        filters: {
+            toFix,
+            formatPrice
         },
         methods: {
             showPopupInfo() {

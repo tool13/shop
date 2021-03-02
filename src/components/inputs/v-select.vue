@@ -69,6 +69,7 @@
         width: 225px;
 
         &__title {
+            margin: 0;
             padding: 5px 10px;
             border: 1px solid sandybrown;
             cursor: pointer;

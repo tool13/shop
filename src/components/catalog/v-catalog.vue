@@ -4,12 +4,36 @@
         <router-link :to="{name: 'cart', params: {cart_data: CART}}">
             <span class="v-catalog__link-to-cart">Cart: {{CART.length}}</span>
         </router-link>
-        <v-select
-            v-bind:options="filters"
-            v-bind:selected="selected"
-            @select="sortByFilter"
-            v-bind:isExpanded="IS_DESKTOP"
-        />
+        <div class="v-catalog__filters">
+            <v-select
+                v-bind:options="filters"
+                v-bind:selected="selected"
+                @select="sortByFilter"
+                v-bind:isExpanded="IS_DESKTOP"
+            />
+            <div class="range-slider">
+                <input
+                    type="range"
+                    min="0"
+                    max="10000"
+                    step="10"
+                    v-model.number="minPrice"
+                    @change="setRangeSliders"
+                >
+                <input
+                    type="range"
+                    min="0"
+                    max="10000"
+                    step="10"
+                    v-model.number="maxPrice"
+                    @change="setRangeSliders"
+                >
+            </div>
+            <div class="range-values">
+                <p>min: {{minPrice}}</p>
+                <p>max: {{maxPrice}}</p>
+            </div>
+        </div>
         <ul class="v-catalog__list">
             <v-catalog-item
                 v-for="product in filteredProducts"
@@ -55,8 +79,10 @@
                     {name: 'Мужские', value: 'm'},
                     {name: 'Женские', value: 'w'}
                 ],
-                selected: 'all',
-                sortedProducts: []
+                selected: 'Все',
+                sortedProducts: [],
+                minPrice: 0,
+                maxPrice: 10000
             };
         },
         methods: {
@@ -68,17 +94,30 @@
                 this.ADD_TO_CART(data);
             },
             sortByFilter(option) {
-                this.sortedProducts = [];
-                this.PRODUCTS.map(item => {
-                    if (item.category === option.name) {
-                        this.sortedProducts.push(item);
-                    }
+                let vm = this;
+                this.sortedProducts = [...this.PRODUCTS];
+                this.sortedProducts = this.sortedProducts.filter(item => {
+                    return item.price >= vm.minPrice && item.price <= vm.maxPrice;
                 });
-                this.selected = option.name;
+                if (option) {
+                    this.selected = option.name;
+                    this.sortedProducts = this.sortedProducts.filter(item => {
+                        return item.category === option.name;
+                    });
+                }
+            },
+            setRangeSliders() {
+                if (this.minPrice > this.maxPrice) {
+                    let tmp = this.maxPrice;
+                    this.maxPrice = this.minPrice;
+                    this.minPrice = tmp;
+                }
+                this.sortByFilter();
             }
         },
         mounted() {
             this.GET_PRODUCTS_FROM_API();
+            this.sortByFilter();
         }
     }
 </script>
@@ -121,5 +160,32 @@
             padding: 10px;
             border: 1px solid sandybrown;
         }
+
+        &__filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
+
+    .range-slider {
+        position: relative;
+        width: 200px;
+        margin: auto 16px;
+        text-align: center;
+
+        & input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            &::-webkit-slider-thumb {
+                position: relative;
+                z-index: 2;
+                top: 2px;
+                margin-top: -5px;
+            }
+        }
+    }
+
 </style>

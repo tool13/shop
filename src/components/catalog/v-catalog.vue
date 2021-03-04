@@ -61,7 +61,8 @@
                 'PRODUCTS',
                 'CART',
                 'IS_MOBILE',
-                'IS_DESKTOP'
+                'IS_DESKTOP',
+                'SEARCH_VALUE'
             ]),
             filteredProducts() {
                 if (this.sortedProducts.length) {
@@ -113,11 +114,27 @@
                     this.minPrice = tmp;
                 }
                 this.sortByFilter();
+            },
+            sortProductsBySearch(value) {
+                this.sortedProducts = [...this.PRODUCTS];
+                if (value) {
+                    this.sortedProducts = this.sortedProducts.filter(item => {
+                        return item.name.toLowerCase().includes(value.toLowerCase());
+                    })
+                } else {
+                    this.sortedProducts = this.PRODUCTS;
+                }
+            }
+        },
+        watch: {
+            SEARCH_VALUE() {
+                this.sortProductsBySearch(this.SEARCH_VALUE);
             }
         },
         mounted() {
             this.GET_PRODUCTS_FROM_API();
             this.sortByFilter();
+            this.sortProductsBySearch();
         }
     }
 </script>

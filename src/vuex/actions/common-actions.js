@@ -10,5 +10,8 @@ export default {
     },
     DELETE_FROM_CART({commit}, index) {
         commit('REMOVE_FROM_CART', index);
-    }
+    },
+    GET_SEARCH_VALUE({commit}, value) {
+        commit('SET_SEARCH_VALUE', value);
+    },
 }

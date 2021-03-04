@@ -28,5 +28,8 @@ export default {
     },
     REMOVE_FROM_CART: (state, index) => {
         state.cart.splice(index, 1);
+    },
+    SET_SEARCH_VALUE: (state, value) => {
+        state.searchValue = value;
     }
 }

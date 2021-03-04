@@ -10,5 +10,8 @@ export default {
     },
     CART(state) {
         return state.cart;
+    },
+    SEARCH_VALUE(state) {
+        return state.searchValue;
     }
 }

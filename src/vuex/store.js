@@ -11,10 +11,11 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
     state: {
-        isMpbile: false,
+        isMobile: false,
         isDesktop: true,
         products: [],
-        cart: []
+        cart: [],
+        searchValue: ''
     },
     getters,
     mutations,
